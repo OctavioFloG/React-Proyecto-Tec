@@ -11,16 +11,36 @@ function App() {
    const [input, setInput] = useState('');
 
    const agregarInput = valor => {
-      setInput(input + valor);
+      const operadores = ['+', '-', '*', '/', '.'];
+      if (input === '' && operadores.includes(valor)) { //No permite poner un operando al iniciode
+         return;
+      }
+      if (operadores.includes(input.slice(-1)) && operadores.includes(valor)) {
+         // Reemplaza el último operador con el nuevo
+         setInput(input.slice(0, -1) + valor);
+      } else {
+         setInput(input + valor);
+      }
    };
 
    const calcularResultado = () => {
+      // Lista de operadores
+      const operadores = ['+', '-', '*', '/', '.'];
+
+      // Verifica si el último carácter es un operador
+      if (operadores.includes(input.toString().slice(-1))) {
+         alert('La expresión no puede terminar con un operador.');
+         return; // No procede con la evaluación
+      }
+
+      // Si la validación es correcta, evalúa la expresión
       if (input) {
-         setInput(evaluate(input));
-      }else{
+         setInput(evaluate(input).toString()); // Convierte el resultado a cadena
+      } else {
          alert('Ingrese valores para poder evaluar');
       }
    };
+
 
    return (
       <div className="App">
@@ -44,7 +64,7 @@ function App() {
             <div className='fila'>
                <Boton manejarClick={agregarInput}>7</Boton>
                <Boton manejarClick={agregarInput}>8</Boton>
-               <Boton mManejarClick={agregarInput}>9</Boton>
+               <Boton manejarClick={agregarInput}>9</Boton>
                <Boton manejarClick={agregarInput}>*</Boton>
             </div>
             <div className='fila'>
