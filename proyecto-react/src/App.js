@@ -11,7 +11,7 @@ function App() {
    const [input, setInput] = useState('');
 
    const agregarInput = valor => {
-      const operadores = ['+', '-', '*', '/'];
+      const operadores = ['+', '-', '*', '/', '.'];
       if (input === '' && operadores.includes(valor)) { //No permite poner un operando al iniciode
          return;
       }
@@ -24,22 +24,22 @@ function App() {
    };
 
    const calcularResultado = () => {
-   // Lista de operadores
-   const operadores = ['+', '-', '*', '/'];
+      // Lista de operadores
+      const operadores = ['+', '-', '*', '/', '.'];
 
-   // Verifica si el último carácter es un operador
-   if (operadores.includes(input.toString().slice(-1))) {
-      alert('La expresión no puede terminar con un operador.');
-      return; // No procede con la evaluación
-   }
+      // Verifica si el último carácter es un operador
+      if (operadores.includes(input.toString().slice(-1))) {
+         alert('La expresión no puede terminar con un operador.');
+         return; // No procede con la evaluación
+      }
 
-   // Si la validación es correcta, evalúa la expresión
-   if (input) {
-      setInput(evaluate(input).toString()); // Convierte el resultado a cadena
-   } else {
-      alert('Ingrese valores para poder evaluar');
-   }
-};
+      // Si la validación es correcta, evalúa la expresión
+      if (input) {
+         setInput(evaluate(input).toString()); // Convierte el resultado a cadena
+      } else {
+         alert('Ingrese valores para poder evaluar');
+      }
+   };
 
 
    return (
